@@ -28,7 +28,7 @@ public class Car {
     private String company;
 
     @Column(nullable = false)
-    private int maileage;
+    private double maileage;
 
     @Column(nullable = false)
     private int seatingCapacity;
@@ -61,7 +61,7 @@ public class Car {
 		 
 	 }
 	 
-	public Car(int id, String registrationNumber, String model, String company, int maileage, int seatingCapacity,
+	public Car(int id, String registrationNumber, String model, String company, double maileage, int seatingCapacity,
 			String fuelType, String insuranceNumber, String carCondition, String currentStatus, double rentalRate,
 			Date previousServiceDate, Date nextServiceDate, String maintenanceStatus) {
 		super();
@@ -106,7 +106,7 @@ public class Car {
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public int getMaileage() {
+	public double getMaileage() {
 		return maileage;
 	}
 	public void setMaileage(int maileage) {
@@ -133,9 +133,10 @@ public class Car {
 	public String getCarCondition() {
 		return carCondition;
 	}
-	public void setCondition(String carCondition) {
-		this.carCondition = carCondition;
+	public void setCarCondition(String carCondition) {
+	    this.carCondition = carCondition;
 	}
+
 	public String getCurrentStatus() {
 		return currentStatus;
 	}
@@ -166,4 +167,25 @@ public class Car {
 	public void setMaintenanceStatus(String maintenanceStatus) {
 		this.maintenanceStatus = maintenanceStatus;
 	}	 
+	
+	@Override
+	public String toString() {
+	    return "Car{" +
+	            "id=" + id +
+	            ", registrationNumber='" + registrationNumber + '\'' +
+	            ", model='" + model + '\'' +
+	            ", company='" + company + '\'' +
+	            ", maileage=" + maileage +
+	            ", seatingCapacity=" + seatingCapacity +
+	            ", fuelType='" + fuelType + '\'' +
+	            ", insuranceNumber='" + insuranceNumber + '\'' +
+	            ", carCondition='" + carCondition + '\'' +
+	            ", currentStatus='" + currentStatus + '\'' +
+	            ", rentalRate=" + rentalRate +
+	            ", previousServiceDate=" + previousServiceDate +
+	            ", nextServiceDate=" + nextServiceDate +
+	            ", maintenanceStatus='" + maintenanceStatus + '\'' +
+	            '}';
+	}
+
 }
