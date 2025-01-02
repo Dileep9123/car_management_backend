@@ -27,36 +27,54 @@ public class CarController {
 	
 	@Autowired
 	private CarService service;
-	
+
+	// Fetch car by ID
 	@GetMapping("getCar/id/{carId}")
-	Car getCar(@PathVariable int carId) throws InvalidEntityException {
-		return service.getCar(carId);
+	public ResponseEntity<?> getCar(@PathVariable int carId) {
+		try {
+			Car car = service.getCar(carId);
+			return ResponseEntity.ok(car);
+		} catch (InvalidEntityException ex) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car not found with ID: " + carId);
+		}
 	}
-	
+
+	// Fetch car by registration number
 	@GetMapping("getCar/registrationnumber/{registrationNumber}")
-	ResponseEntity<Car> getCarByRegistrationNumber(@PathVariable String registrationNumber) throws InvalidEntityException {
-		return new ResponseEntity<Car>(service.getCarByRegistrationNumber(registrationNumber), HttpStatus.OK);
+	public ResponseEntity<?> getCarByRegistrationNumber(@PathVariable String registrationNumber) {
+		try {
+			Car car = service.getCarByRegistrationNumber(registrationNumber);
+			return ResponseEntity.ok(car);
+		} catch (InvalidEntityException ex) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Enter a valid registration number");
+		}
 	}
-	
-	
-	
-	
 
-    @PostMapping("/addCar")
-    public ResponseEntity<Car> addCar(@Validated @RequestBody Car car) {
-    	  return new ResponseEntity<Car>(service.addCar(car), HttpStatus.OK);
-    }
+	// Add a new car
+	@PostMapping("/addCar")
+	public ResponseEntity<Car> addCar(@Validated @RequestBody Car car) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.addCar(car));
+	}
 
-    
-    @PutMapping("/updateCar")
-    public ResponseEntity<Car> updateCar(@Validated @RequestBody Car car){
-    	return new ResponseEntity<Car>(service.updateCar(car), HttpStatus.OK);
-    }
-    
-    @GetMapping("/getAllCars")
-    public ResponseEntity<List<Car>> getAllCars()throws InvalidEntityException {
-    	
-    	return new ResponseEntity<List<Car>>(service.getAllCars(), HttpStatus.OK);
-    }
-    
+	// Update existing car details
+	@PutMapping("/updateCar")
+	public ResponseEntity<?> updateCar(@Validated @RequestBody Car car) {
+		try {
+			Car updatedCar = service.updateCar(car);
+			return ResponseEntity.ok(updatedCar);
+		} catch (InvalidEntityException ex) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to update car. Car not found.");
+		}
+	}
+
+	// Fetch all cars
+	@GetMapping("/getAllCars")
+	public ResponseEntity<?> getAllCars() {
+		try {
+			List<Car> cars = service.getAllCars();
+			return ResponseEntity.ok(cars);
+		} catch (InvalidEntityException ex) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No cars available.");
+		}
+	}
 }
