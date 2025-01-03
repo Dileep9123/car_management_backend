@@ -1,6 +1,7 @@
 package org.infosys.carmanagement.model;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -72,7 +73,7 @@ public class Car {
     private String currentStatus;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Rental rate must be greater than 0.")
+    @Min(value = 1, message = "Rental rate must be greater than Basic Prize 250.")
     private double rentalRate;
 
     @Column(nullable = false)
@@ -138,8 +139,8 @@ public class Car {
         return mileage;
     }
 
-    public void setMaileage(double maileage) {
-        this.mileage = maileage;
+    public void setMaileage(double mileage) {
+        this.mileage = mileage;
     }
 
     public int getSeatingCapacity() {

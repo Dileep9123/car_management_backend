@@ -38,9 +38,6 @@ public class CarController {
 		return new ResponseEntity<Car>(service.getCarByRegistrationNumber(registrationNumber), HttpStatus.OK);
 	}
 	
-	
-	
-	
 
     @PostMapping("/addCar")
     public ResponseEntity<Car> addCar(@Validated @RequestBody Car car) {
