@@ -79,18 +79,9 @@ public class Car {
 
 
 
-    @Column(nullable = false)
-    @PastOrPresent(message = "Previous service date must be in the past or today.")
-    private LocalDate previousServiceDate;
 
-    @Column(nullable = false)
-    @Future(message = "Next service date must be in the future.")
-    private LocalDate nextServiceDate;
 
-    @Column(nullable = false)
-    @NotEmpty(message = "Maintenance status cannot be empty.")
-    @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Maintenance status must not contain special characters except spaces.")
-    private String maintenanceStatus;
+
 
     @Digits(integer = 10, fraction = 2, message = "Rental rate must be a valid decimal number.")
     @Positive(message = "Rental rate must be a positive number.")
