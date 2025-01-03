@@ -16,6 +16,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 @Component
 @Entity
@@ -28,8 +31,8 @@ public class Car {
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "Registration number cannot be empty.")
     @Pattern(
-        regexp = "^[A-Z]{1,2}\\d{2}[A-Z]{1,2}\\d{1,4}$",
-        message = "Registration number must be in the format: {state code}{2 digits}{1-2 alphabets}{1-4 digits}."
+        regexp = "^(?=.*[A-Z])(?=.*\\d)[A-Z0-9]+$", 
+        message = "Registration number must be a combination of capital letters and numbers, and cannot include special characters."
     )
     private String registrationNumber;
 
@@ -44,8 +47,10 @@ public class Car {
     private String company;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Mileage must be greater than 0.")
-    private double mileage;
+    @Digits(integer = 10, fraction = 2, message = "Mileage must be a valid decimal number.")
+    @Positive(message = "Mileage must be a positive number.")
+    private BigDecimal mileage;
+
 
     @Column(nullable = false)
     @Min(value = 1, message = "Seating capacity must be greater than 0.")
@@ -72,9 +77,7 @@ public class Car {
     @NotEmpty(message = "Current status cannot be empty.")
     private String currentStatus;
 
-    @Column(nullable = false)
-    @Min(value = 1, message = "Rental rate must be greater than Basic Prize 250.")
-    private double rentalRate;
+
 
     @Column(nullable = false)
     @PastOrPresent(message = "Previous service date must be in the past or today.")
@@ -89,6 +92,10 @@ public class Car {
     @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Maintenance status must not contain special characters except spaces.")
     private String maintenanceStatus;
 
+    @Digits(integer = 10, fraction = 2, message = "Rental rate must be a valid decimal number.")
+    @Positive(message = "Rental rate must be a positive number.")
+    private BigDecimal rentalRate;
+
 
 
     @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL)
@@ -96,7 +103,7 @@ public class Car {
     private List<Rental> bookings;
 
     @OneToMany(mappedBy = "maintenanceId", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+    @JsonIgnoreProperties("maintenanceId")
     private List<Maintenance> maintenance;
 
     public Car() {}
@@ -135,12 +142,17 @@ public class Car {
         this.company = company;
     }
 
-    public double getMaileage() {
+    public BigDecimal getMileage() {
         return mileage;
     }
 
-    public void setMaileage(double mileage) {
-        this.mileage = mileage;
+
+    public void setMileage(BigDecimal mileage) {
+        if (mileage != null) {
+            this.mileage = mileage.setScale(2, RoundingMode.HALF_UP);
+        } else {
+            this.mileage = null;
+        }
     }
 
     public int getSeatingCapacity() {
@@ -183,38 +195,19 @@ public class Car {
         this.currentStatus = currentStatus;
     }
 
-    public double getRentalRate() {
+    public BigDecimal getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(double rentalRate) {
-        this.rentalRate = rentalRate;
+    public void setRentalRate(BigDecimal rentalRate) {
+        if (rentalRate != null) {
+            this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP); // Rounds to 2 decimal places
+        } else {
+            this.rentalRate = null;
+        }
     }
 
-    public LocalDate getPreviousServiceDate() {
-        return previousServiceDate;
-    }
-
-    public void setPreviousServiceDate(LocalDate previousServiceDate) {
-        this.previousServiceDate = previousServiceDate;
-    }
-
-    public LocalDate getNextServiceDate() {
-        return nextServiceDate;
-    }
-
-    public void setNextServiceDate(LocalDate nextServiceDate) {
-        this.nextServiceDate = nextServiceDate;
-    }
-
-    public String getMaintenanceStatus() {
-        return maintenanceStatus;
-    }
-
-    public void setMaintenanceStatus(String maintenanceStatus) {
-        this.maintenanceStatus = maintenanceStatus;
-    }
-
+   
     public List<Rental> getBookings() {
         return bookings;
     }
@@ -234,10 +227,9 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", registrationNumber=" + registrationNumber + ", model=" + model + ", company="
-				+ company + ", maileage=" + mileage + ", seatingCapacity=" + seatingCapacity + ", fuelType=" + fuelType
+				+ company + ", mileage=" + mileage + ", seatingCapacity=" + seatingCapacity + ", fuelType=" + fuelType
 				+ ", insuranceNumber=" + insuranceNumber + ", carCondition=" + carCondition + ", currentStatus="
-				+ currentStatus + ", rentalRate=" + rentalRate + ", previousServiceDate=" + previousServiceDate
-				+ ", nextServiceDate=" + nextServiceDate + ", maintenanceStatus=" + maintenanceStatus + ", bookings="
+				+ currentStatus + ", rentalRate=" + rentalRate + ",  bookings="
 				+ bookings + ", maintenance=" + maintenance + "]";
 	}
     

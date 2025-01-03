@@ -9,7 +9,7 @@ public interface CarService {
 	
 	public Car addCar(Car car);
 
-	public Car updateCar(Car car);
+	public Car updateCar(Car car) throws InvalidEntityException;
 
 	public Car getCar(int carId) throws InvalidEntityException;
 
