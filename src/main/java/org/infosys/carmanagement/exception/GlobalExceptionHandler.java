@@ -15,17 +15,15 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
 	
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+	    Map<String, String> errors = new HashMap<>();
+	    ex.getBindingResult().getFieldErrors().forEach(error -> {
+	        errors.put(error.getField(), error.getDefaultMessage()); // Field-specific errors
+	    });
+	    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	}
 
-        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-        
-        for(FieldError e : fieldErrors) {
-			errors.put(e.getField(),e.getDefaultMessage());
-		}
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
     
     @ExceptionHandler(InvalidEntityException.class)
     public ResponseEntity<Map<String, String>> handleEmployeeNotFoundException(InvalidEntityException ex) {
