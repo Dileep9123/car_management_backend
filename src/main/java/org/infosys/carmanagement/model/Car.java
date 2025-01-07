@@ -1,6 +1,7 @@
 package org.infosys.carmanagement.model;
 
-import java.time.LocalDate;
+
+
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class Car {
 
     @Column(nullable = false)
     @NotEmpty(message = "Fuel type cannot be empty.")
-    private String fuelType;
+    private String fuelType; 
 
     @Column(nullable = false)
     @NotEmpty(message = "Insurance number cannot be empty.")
@@ -79,16 +80,17 @@ public class Car {
 
 
 
-
-
-
-
     @Digits(integer = 10, fraction = 2, message = "Rental rate must be a valid decimal number.")
     @Positive(message = "Rental rate must be a positive number.")
     private BigDecimal rentalRate;
+    
+    @NotEmpty(message = "Color cannot be empty.")
+    private String color;
+    
+    @NotEmpty(message = "Color cannot be empty.")
+    private String location;
 
-
-
+    
     @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("bookingId")
     private List<Rental> bookings;
@@ -96,6 +98,8 @@ public class Car {
     @OneToMany(mappedBy = "maintenanceId", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("maintenanceId")
     private List<Maintenance> maintenance;
+    
+    
 
     public Car() {}
 
@@ -197,9 +201,16 @@ public class Car {
             this.rentalRate = null;
         }
     }
+    
+    public String getColor() {
+		return color;
+	}
 
-   
-    public List<Rental> getBookings() {
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public List<Rental> getBookings() {
         return bookings;
     }
 
@@ -214,15 +225,28 @@ public class Car {
     public void setMaintenance(List<Maintenance> maintenance) {
         this.maintenance = maintenance;
     }
+    
+    
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", registrationNumber=" + registrationNumber + ", model=" + model + ", company="
 				+ company + ", mileage=" + mileage + ", seatingCapacity=" + seatingCapacity + ", fuelType=" + fuelType
 				+ ", insuranceNumber=" + insuranceNumber + ", carCondition=" + carCondition + ", currentStatus="
-				+ currentStatus + ", rentalRate=" + rentalRate + ",  bookings="
-				+ bookings + ", maintenance=" + maintenance + "]";
+				+ currentStatus + ", rentalRate=" + rentalRate + ", color=" + color + ", bookings=" + bookings
+				+ ", maintenance=" + maintenance + "]";
 	}
+    
+
+	
     
     
 

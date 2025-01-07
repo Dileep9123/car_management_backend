@@ -1,5 +1,6 @@
 package org.infosys.carmanagement.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.infosys.carmanagement.exception.InvalidEntityException;
@@ -53,4 +54,15 @@ public class CarServiceImpl implements CarService {
 		return repo.findByRegistrationNumber(registrationNumber)
 				.orElseThrow(() -> new InvalidEntityException("Car with registration number " + registrationNumber + " not found."));
 	}
+	
+	
+	public List<Car> filtering() throws InvalidEntityException {
+		List<Car> cars = repo.findAllByCurrentStatus("Available");
+	    if (cars.isEmpty()) {
+	        throw new InvalidEntityException("No cars available.");
+	    }
+	    return cars;
+	}
+	
+	
 }

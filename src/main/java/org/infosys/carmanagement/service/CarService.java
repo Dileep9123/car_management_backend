@@ -1,5 +1,6 @@
 package org.infosys.carmanagement.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.infosys.carmanagement.exception.InvalidEntityException;
@@ -16,5 +17,7 @@ public interface CarService {
 	public List<Car> getAllCars() throws InvalidEntityException;
 
 	public Car getCarByRegistrationNumber(String registrationNumber)  throws InvalidEntityException;
+	
+	public List<Car> filtering() throws InvalidEntityException;
 
 }
