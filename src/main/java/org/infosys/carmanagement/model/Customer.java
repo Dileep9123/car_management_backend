@@ -27,21 +27,19 @@ public class Customer {
     private LocalDate dob; // Date of Birth
     private String drivingLicense; // Driving License
     
-    @OneToMany(mappedBy = "bookingId", cascade =CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("customerId")
     private List<Rental> bookings;
 
-    
-
     public Long getCustomerId() {
-		return customerId;
-	}
+        return customerId;
+    }
 
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -113,13 +111,11 @@ public class Customer {
         this.drivingLicense = drivingLicense;
     }
 
-	public List<Rental> getBookings() {
-		return bookings;
-	}
+    public List<Rental> getBookings() {
+        return bookings;
+    }
 
-	public void setBookings(List<Rental> bookings) {
-		this.bookings = bookings;
-	}
-    
-    
+    public void setBookings(List<Rental> bookings) {
+        this.bookings = bookings;
+    }
 }
