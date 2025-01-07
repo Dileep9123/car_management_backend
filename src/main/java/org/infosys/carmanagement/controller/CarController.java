@@ -1,6 +1,9 @@
 package org.infosys.carmanagement.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.infosys.carmanagement.exception.InvalidEntityException;
 import org.infosys.carmanagement.model.Car;
@@ -77,4 +80,62 @@ public class CarController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No cars available.");
 		}
 	}
+	
+	@GetMapping("/filter")
+	public ResponseEntity<?> filter(String company, BigDecimal mileage, BigDecimal rentalRate, String color, String location, Integer seatingCapacity) {
+	    System.out.println(company + " " + mileage + " " + rentalRate + " " + color + " " + location + " " + seatingCapacity);
+
+	    try {
+	        // Fetch all available cars
+	        List<Car> cars = service.filtering();
+
+	        // Start streaming the cars for further filtering
+	        Stream<Car> carStream = cars.stream();
+
+	        // Apply filtering based on mileage (greater than or equal to the provided mileage)
+	        if (mileage != null) {
+	            carStream = carStream.filter(car -> car.getMileage().compareTo(mileage) >= 0);
+	        }
+
+	        // Apply filtering based on rental rate (less than or equal to the provided rental rate)
+	        if (rentalRate != null) {
+	            carStream = carStream.filter(car -> car.getRentalRate().compareTo(rentalRate) <= 0);
+	        }
+
+	        // Apply filtering based on company if the company is provided
+	        if (company != null && !company.isEmpty()) {
+	            carStream = carStream.filter(car -> company.equalsIgnoreCase(car.getCompany()));
+	        }
+
+	        // Apply filtering based on color if the color is provided
+	        if (color != null && !color.isEmpty()) {
+	            carStream = carStream.filter(car -> color.equalsIgnoreCase(car.getColor()));
+	        }
+
+	        // Apply filtering based on location if the location is provided
+	        if (location != null && !location.isEmpty()) {
+	            carStream = carStream.filter(car -> location.equalsIgnoreCase(car.getLocation()));
+	        }
+
+	        // Apply filtering based on seating capacity if provided (greater than or equal to the provided capacity)
+	        if (seatingCapacity != null) {
+	            carStream = carStream.filter(car -> car.getSeatingCapacity().compareTo(seatingCapacity) >=0);
+	        }
+
+	        // Collect the filtered cars into a list
+	        List<Car> filteredCars = carStream.collect(Collectors.toList());
+
+
+	        // Return the filtered cars in the response
+	        return ResponseEntity.ok(filteredCars);
+	    } catch (InvalidEntityException ex) {
+	        // If no cars are found, return a 404 response with an appropriate message
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+	    } catch (Exception ex) {
+	        // Handle any other unexpected exceptions
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + ex.getMessage());
+	    }
+	}
+
+
 }

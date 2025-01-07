@@ -13,9 +13,9 @@ public class CarManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarManagementApplication.class, args);
 	}
-	
-	@Bean
-    public WebMvcConfigurer corsConfigurer() {
+
+    @Bean
+    WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

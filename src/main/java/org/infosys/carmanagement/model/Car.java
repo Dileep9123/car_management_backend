@@ -1,5 +1,11 @@
 package org.infosys.carmanagement.model;
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> aa2fda93519fc792205b3dc4c497657dd5b03570
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -57,11 +63,11 @@ public class Car {
 
     @Column(nullable = false)
     @Min(value = 1, message = "Seating capacity must be greater than 0.")
-    private int seatingCapacity;
+    private Integer seatingCapacity;
 
     @Column(nullable = false)
     @NotEmpty(message = "Fuel type cannot be empty.")
-    private String fuelType;
+    private String fuelType; 
 
     @Column(nullable = false)
     @NotEmpty(message = "Insurance number cannot be empty.")
@@ -80,19 +86,28 @@ public class Car {
     @NotEmpty(message = "Current status cannot be empty.")
     private String currentStatus;
 
-    @Column(nullable = false)
+
+
     @Digits(integer = 10, fraction = 2, message = "Rental rate must be a valid decimal number.")
     @Positive(message = "Rental rate must be a positive number.")
     private BigDecimal rentalRate;
+    
+    @NotEmpty(message = "Color cannot be empty.")
+    private String color;
+    
+    @NotEmpty(message = "Color cannot be empty.")
+    private String location;
 
-
+    
     @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("bookingId")
     private List<Rental> bookings;
 
     @OneToMany(mappedBy = "maintenanceId", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+    @JsonIgnoreProperties("maintenanceId")
     private List<Maintenance> maintenance;
+    
+    
 
     public Car() {}
 
@@ -134,9 +149,10 @@ public class Car {
         return mileage;
     }
 
+
     public void setMileage(BigDecimal mileage) {
         if (mileage != null) {
-            this.mileage = mileage.setScale(2, RoundingMode.HALF_UP); // Rounds to 2 decimal places
+            this.mileage = mileage.setScale(2, RoundingMode.HALF_UP);
         } else {
             this.mileage = null;
         }
@@ -150,11 +166,11 @@ public class Car {
     	this.color=color;
     }
 
-    public int getSeatingCapacity() {
+    public Integer getSeatingCapacity() {
         return seatingCapacity;
     }
 
-    public void setSeatingCapacity(int seatingCapacity) {
+    public void setSeatingCapacity(Integer seatingCapacity) {
         this.seatingCapacity = seatingCapacity;
     }
 
@@ -201,9 +217,16 @@ public class Car {
             this.rentalRate = null;
         }
     }
+    
+    public String getColor() {
+		return color;
+	}
 
-   
-    public List<Rental> getBookings() {
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public List<Rental> getBookings() {
         return bookings;
     }
 
@@ -218,15 +241,28 @@ public class Car {
     public void setMaintenance(List<Maintenance> maintenance) {
         this.maintenance = maintenance;
     }
+    
+    
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", registrationNumber=" + registrationNumber + ", model=" + model + ", company="
 				+ company + ", mileage=" + mileage + ", seatingCapacity=" + seatingCapacity + ", fuelType=" + fuelType
 				+ ", insuranceNumber=" + insuranceNumber + ", carCondition=" + carCondition + ", currentStatus="
-				+ currentStatus + ", rentalRate=" + rentalRate + ",  bookings="
-				+ bookings + ", maintenance=" + maintenance + "]";
+				+ currentStatus + ", rentalRate=" + rentalRate + ", color=" + color + ", bookings=" + bookings
+				+ ", maintenance=" + maintenance + "]";
 	}
+    
+
+	
     
     
 
