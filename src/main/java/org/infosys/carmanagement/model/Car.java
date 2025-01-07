@@ -55,7 +55,7 @@ public class Car {
 
     @Column(nullable = false)
     @Min(value = 1, message = "Seating capacity must be greater than 0.")
-    private int seatingCapacity;
+    private Integer seatingCapacity;
 
     @Column(nullable = false)
     @NotEmpty(message = "Fuel type cannot be empty.")
@@ -150,11 +150,11 @@ public class Car {
         }
     }
 
-    public int getSeatingCapacity() {
+    public Integer getSeatingCapacity() {
         return seatingCapacity;
     }
 
-    public void setSeatingCapacity(int seatingCapacity) {
+    public void setSeatingCapacity(Integer seatingCapacity) {
         this.seatingCapacity = seatingCapacity;
     }
 
