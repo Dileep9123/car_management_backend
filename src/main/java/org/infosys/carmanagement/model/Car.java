@@ -1,11 +1,5 @@
 package org.infosys.carmanagement.model;
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> aa2fda93519fc792205b3dc4c497657dd5b03570
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -93,9 +87,6 @@ public class Car {
     private BigDecimal rentalRate;
     
     @NotEmpty(message = "Color cannot be empty.")
-    private String color;
-    
-    @NotEmpty(message = "Color cannot be empty.")
     private String location;
 
     
@@ -158,14 +149,6 @@ public class Car {
         }
     }
     
-    public String getColor() {
-    	return color;
-    }
-    
-    public void setColor(String color) {
-    	this.color=color;
-    }
-
     public Integer getSeatingCapacity() {
         return seatingCapacity;
     }
