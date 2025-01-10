@@ -1,8 +1,5 @@
 package org.infosys.carmanagement.model;
 
-
-
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -51,6 +48,11 @@ public class Car {
     @Digits(integer = 10, fraction = 2, message = "Mileage must be a valid decimal number.")
     @Positive(message = "Mileage must be a positive number.")
     private BigDecimal mileage;
+    
+    @Column(nullable = false)
+    @NotEmpty(message = "Color cannot be empty.")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Color must contain only alphabets and spaces.")
+    private String color;
 
 
     @Column(nullable = false)
@@ -83,9 +85,6 @@ public class Car {
     @Digits(integer = 10, fraction = 2, message = "Rental rate must be a valid decimal number.")
     @Positive(message = "Rental rate must be a positive number.")
     private BigDecimal rentalRate;
-    
-    @NotEmpty(message = "Color cannot be empty.")
-    private String color;
     
     @NotEmpty(message = "Color cannot be empty.")
     private String location;
@@ -149,7 +148,7 @@ public class Car {
             this.mileage = null;
         }
     }
-
+    
     public Integer getSeatingCapacity() {
         return seatingCapacity;
     }

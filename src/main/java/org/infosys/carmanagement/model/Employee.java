@@ -1,17 +1,16 @@
 package org.infosys.carmanagement.model;
 
-
-import java.time.LocalDate;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Employee {
@@ -27,23 +26,20 @@ public class Employee {
     private String password;
     private LocalDate expiryDate; 
     private boolean firstLogin = true;
-    
-    @OneToMany(mappedBy = "bookingId", cascade =CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+
+    @OneToMany(mappedBy = "employeeId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("employeeId")
     private List<Rental> bookings;
 
-    
-   
-
     public int getEmployeeId() {
-		return employeeId;
-	}
+        return employeeId;
+    }
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
-	public String getFullName() {
+    public String getFullName() {
         return fullName;
     }
 
@@ -98,21 +94,20 @@ public class Employee {
     public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
+
     public boolean isFirstLogin() {
-        return this.firstLogin;
-     }
-  
-     public void setFirstLogin(boolean firstLogin) {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
         this.firstLogin = firstLogin;
-     }
+    }
 
-	public List<Rental> getBookings() {
-		return bookings;
-	}
+    public List<Rental> getBookings() {
+        return bookings;
+    }
 
-	public void setBookings(List<Rental> bookings) {
-		this.bookings = bookings;
-	}
-     
-     
+    public void setBookings(List<Rental> bookings) {
+        this.bookings = bookings;
+    }
 }
