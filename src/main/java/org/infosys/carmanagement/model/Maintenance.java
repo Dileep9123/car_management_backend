@@ -3,8 +3,8 @@ package org.infosys.carmanagement.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,28 +22,27 @@ public class Maintenance {
 	@JsonIgnoreProperties("maintenance")
     private Car carId;
 
-    @Column(name = "service_type")
+
+    @Column(name = "service_type", nullable = false)
     private String serviceType;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "cost")
+    @Column(name = "cost", nullable = false)
     private Double cost;
 
-    @Setter
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
+
     
     
     
     
 
 
-    
+
 }
-
-

@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Rental {
 	
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bookingId;
+    private Long bookingId;
 
     private String pickupLocation;
     private String dropLocation;
@@ -31,6 +31,8 @@ public class Rental {
     private Float fare;
     private Float discount;
     private String bookingStatus;
+
+ 
 
     @ManyToOne
     @JoinColumn(name="employeeId")

@@ -1,11 +1,13 @@
 package org.infosys.carmanagement.model;
 
 
+
 import java.time.LocalDate;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
@@ -37,11 +40,13 @@ public class Employee {
     private String emailId;
     private String password;
     private LocalDate expiryDate; 
+    @Builder.Default
     private boolean firstLogin = true;
-    
-    @OneToMany(mappedBy = "bookingId", cascade =CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+
+    @OneToMany(mappedBy = "employeeId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("employeeId")
     private List<Rental> bookings;
+
 
     
    

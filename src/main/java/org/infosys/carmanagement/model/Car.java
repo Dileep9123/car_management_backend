@@ -1,11 +1,8 @@
 package org.infosys.carmanagement.model;
 
-
-
-
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,8 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -61,6 +57,11 @@ public class Car {
     @Digits(integer = 10, fraction = 2, message = "Mileage must be a valid decimal number.")
     @Positive(message = "Mileage must be a positive number.")
     private BigDecimal mileage;
+    
+    @Column(nullable = false)
+    @NotEmpty(message = "Color cannot be empty.")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Color must contain only alphabets and spaces.")
+    private String color;
 
 
     @Column(nullable = false)
@@ -95,9 +96,6 @@ public class Car {
     private BigDecimal rentalRate;
     
     @NotEmpty(message = "Color cannot be empty.")
-    private String color;
-    
-    @NotEmpty(message = "Color cannot be empty.")
     private String location;
 
     
@@ -112,4 +110,5 @@ public class Car {
     
 
    
+
 }

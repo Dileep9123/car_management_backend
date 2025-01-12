@@ -33,16 +33,20 @@ public class Customer {
     private String address;
     private String email;
     private String password;
+    @Builder.Default
     private int loyaltyPoints = 0;
+    @Builder.Default
     private boolean blacklistStatus = false;
     private LocalDate dob; // Date of Birth
     private String drivingLicense; // Driving License
     
-    @OneToMany(mappedBy = "bookingId", cascade =CascadeType.ALL)
-    @JsonIgnoreProperties("bookingId")
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("customerId")
     private List<Rental> bookings;
+
 
     
 
    
 }
+
