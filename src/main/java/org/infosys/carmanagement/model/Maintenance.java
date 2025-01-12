@@ -18,9 +18,9 @@ public class Maintenance {
     private Long maintenanceId;
     
     @ManyToOne
-    @JoinColumn(name="registrationNumber")
+    @JoinColumn(name="carId")
 	@JsonIgnoreProperties("maintenance")
-    private Car registrationNmber;
+    private Car carId;
 
     @Column(name = "service_type")
     private String serviceType;
@@ -37,6 +37,8 @@ public class Maintenance {
 
     @Column(name = "description")
     private String description;
+    
+    
     
     
 

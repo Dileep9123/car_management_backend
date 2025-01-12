@@ -9,6 +9,7 @@ import org.infosys.carmanagement.exception.InvalidEntityException;
 import org.infosys.carmanagement.model.Car;
 
 import org.infosys.carmanagement.service.CarService;
+import org.infosys.carmanagement.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -29,13 +30,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarController {
 	
 	@Autowired
-	private CarService service;
+	private CarService carService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	// Fetch car by ID
 	@GetMapping("getCar/id/{carId}")
 	public ResponseEntity<?> getCar(@PathVariable int carId) {
 		try {
-			Car car = service.getCar(carId);
+			Car car = carService.getCar(carId);
 			return ResponseEntity.ok(car);
 		} catch (InvalidEntityException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car not found with ID: " + carId);
@@ -46,7 +50,7 @@ public class CarController {
 	@GetMapping("getCar/registrationnumber/{registrationNumber}")
 	public ResponseEntity<?> getCarByRegistrationNumber(@PathVariable String registrationNumber) {
 		try {
-			Car car = service.getCarByRegistrationNumber(registrationNumber);
+			Car car = carService.getCarByRegistrationNumber(registrationNumber);
 			return ResponseEntity.ok(car);
 		} catch (InvalidEntityException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Enter a valid registration number");
@@ -56,14 +60,14 @@ public class CarController {
 	// Add a new car
 	@PostMapping("/addCar")
 	public ResponseEntity<Car> addCar(@Validated @RequestBody Car car) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.addCar(car));
+		return ResponseEntity.status(HttpStatus.CREATED).body(carService.addCar(car));
 	}
 
 	// Update existing car details
 	@PutMapping("/updateCar")
 	public ResponseEntity<?> updateCar(@Validated @RequestBody Car car) {
 		try {
-			Car updatedCar = service.updateCar(car);
+			Car updatedCar = carService.updateCar(car);
 			return ResponseEntity.ok(updatedCar);
 		} catch (InvalidEntityException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to update car. Car not found.");
@@ -74,7 +78,7 @@ public class CarController {
 	@GetMapping("/getAllCars")
 	public ResponseEntity<?> getAllCars() {
 		try {
-			List<Car> cars = service.getAllCars();
+			List<Car> cars = carService.getAllCars();
 			return ResponseEntity.ok(cars);
 		} catch (InvalidEntityException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No cars available.");
@@ -87,7 +91,7 @@ public class CarController {
 
 	    try {
 	        // Fetch all available cars
-	        List<Car> cars = service.filtering();
+	        List<Car> cars = carService.filtering();
 
 	        // Start streaming the cars for further filtering
 	        Stream<Car> carStream = cars.stream();
@@ -135,6 +139,11 @@ public class CarController {
 	        // Handle any other unexpected exceptions
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + ex.getMessage());
 	    }
+	}
+	
+	@GetMapping("/email/{email}")
+	public void sendEmail(@PathVariable String email) {
+		emailService.sendEmail(email, "Hello", "Hello MAMA");
 	}
 
 

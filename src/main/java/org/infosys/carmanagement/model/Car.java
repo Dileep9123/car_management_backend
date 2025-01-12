@@ -17,11 +17,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 
-
-@Component
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Car {
 
@@ -101,153 +111,5 @@ public class Car {
     
     
 
-    public Car() {}
-
-    // Getters and setters
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
-
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public BigDecimal getMileage() {
-        return mileage;
-    }
-
-
-    public void setMileage(BigDecimal mileage) {
-        if (mileage != null) {
-            this.mileage = mileage.setScale(2, RoundingMode.HALF_UP);
-        } else {
-            this.mileage = null;
-        }
-    }
-
-    public Integer getSeatingCapacity() {
-        return seatingCapacity;
-    }
-
-    public void setSeatingCapacity(Integer seatingCapacity) {
-        this.seatingCapacity = seatingCapacity;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public String getInsuranceNumber() {
-        return insuranceNumber;
-    }
-
-    public void setInsuranceNumber(String insuranceNumber) {
-        this.insuranceNumber = insuranceNumber;
-    }
-
-    public String getCarCondition() {
-        return carCondition;
-    }
-
-    public void setCarCondition(String carCondition) {
-        this.carCondition = carCondition;
-    }
-
-    public String getCurrentStatus() {
-        return currentStatus;
-    }
-
-    public void setCurrentStatus(String currentStatus) {
-        this.currentStatus = currentStatus;
-    }
-
-    public BigDecimal getRentalRate() {
-        return rentalRate;
-    }
-
-    public void setRentalRate(BigDecimal rentalRate) {
-        if (rentalRate != null) {
-            this.rentalRate = rentalRate.setScale(2, RoundingMode.HALF_UP); // Rounds to 2 decimal places
-        } else {
-            this.rentalRate = null;
-        }
-    }
-    
-    public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public List<Rental> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Rental> bookings) {
-        this.bookings = bookings;
-    }
-
-    public List<Maintenance> getMaintenance() {
-        return maintenance;
-    }
-
-    public void setMaintenance(List<Maintenance> maintenance) {
-        this.maintenance = maintenance;
-    }
-    
-    
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	@Override
-	public String toString() {
-		return "Car [carId=" + carId + ", registrationNumber=" + registrationNumber + ", model=" + model + ", company="
-				+ company + ", mileage=" + mileage + ", seatingCapacity=" + seatingCapacity + ", fuelType=" + fuelType
-				+ ", insuranceNumber=" + insuranceNumber + ", carCondition=" + carCondition + ", currentStatus="
-				+ currentStatus + ", rentalRate=" + rentalRate + ", color=" + color + ", bookings=" + bookings
-				+ ", maintenance=" + maintenance + "]";
-	}
-    
-
-	
-    
-    
-
+   
 }
