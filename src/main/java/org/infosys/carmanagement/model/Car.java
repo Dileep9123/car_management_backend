@@ -14,20 +14,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import java.math.BigDecimal;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
 public class Car {
 
@@ -106,9 +97,127 @@ public class Car {
     @OneToMany(mappedBy = "maintenanceId", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("maintenanceId")
     private List<Maintenance> maintenance;
-    
-    
 
+	public int getCarId() {
+		return carId;
+	}
+
+	public void setCarId(int carId) {
+		this.carId = carId;
+	}
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public BigDecimal getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(BigDecimal mileage) {
+		this.mileage = mileage;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public Integer getSeatingCapacity() {
+		return seatingCapacity;
+	}
+
+	public void setSeatingCapacity(Integer seatingCapacity) {
+		this.seatingCapacity = seatingCapacity;
+	}
+
+	public String getFuelType() {
+		return fuelType;
+	}
+
+	public void setFuelType(String fuelType) {
+		this.fuelType = fuelType;
+	}
+
+	public String getInsuranceNumber() {
+		return insuranceNumber;
+	}
+
+	public void setInsuranceNumber(String insuranceNumber) {
+		this.insuranceNumber = insuranceNumber;
+	}
+
+	public String getCarCondition() {
+		return carCondition;
+	}
+
+	public void setCarCondition(String carCondition) {
+		this.carCondition = carCondition;
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
+	}
+
+	public BigDecimal getRentalRate() {
+		return rentalRate;
+	}
+
+	public void setRentalRate(BigDecimal rentalRate) {
+		this.rentalRate = rentalRate;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public List<Rental> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Rental> bookings) {
+		this.bookings = bookings;
+	}
+
+	public List<Maintenance> getMaintenance() {
+		return maintenance;
+	}
+
+	public void setMaintenance(List<Maintenance> maintenance) {
+		this.maintenance = maintenance;
+	}
+    
    
 
 }
