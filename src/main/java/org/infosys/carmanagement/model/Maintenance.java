@@ -1,15 +1,10 @@
 package org.infosys.carmanagement.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 @Entity
 @Table(name = "maintenance")
 public class Maintenance {
@@ -38,11 +33,60 @@ public class Maintenance {
     @Column(name = "description", nullable = false)
     private String description;
 
-    
-    
-    
-    
+	public Long getMaintenanceId() {
+		return maintenanceId;
+	}
 
+	public void setMaintenanceId(Long maintenanceId) {
+		this.maintenanceId = maintenanceId;
+	}
 
+	public Car getCarId() {
+		return carId;
+	}
+
+	public void setCarId(Car carId) {
+		this.carId = carId;
+	}
+
+	public String getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
